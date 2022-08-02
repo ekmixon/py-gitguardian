@@ -151,9 +151,9 @@ class GGClient:
 
     def _url_from_endpoint(self, endpoint: str, version: Optional[str]) -> str:
         if version:
-            endpoint = urllib.parse.urljoin(version + "/", endpoint)
+            endpoint = urllib.parse.urljoin(f"{version}/", endpoint)
 
-        return urllib.parse.urljoin(self.base_uri + "/", endpoint)
+        return urllib.parse.urljoin(f"{self.base_uri}/", endpoint)
 
     @property
     def app_version(self) -> Optional[str]:
@@ -257,11 +257,7 @@ class GGClient:
         )
 
         obj: Union[Detail, ScanResult]
-        if is_ok(resp):
-            obj = ScanResult.SCHEMA.load(resp.json())
-        else:
-            obj = load_detail(resp)
-
+        obj = ScanResult.SCHEMA.load(resp.json()) if is_ok(resp) else load_detail(resp)
         obj.status_code = resp.status_code
 
         return obj

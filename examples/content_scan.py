@@ -28,7 +28,7 @@ if health_obj.status_code == codes[r"\o/"]:  # this is 200 but cooler
     except Exception as exc:
         # Handle exceptions such as schema validation
         traceback.print_exc(2, file=sys.stderr)
-        print(str(exc))
+        print(exc)
 
     if isinstance(scan_result, ScanResult):
         print(

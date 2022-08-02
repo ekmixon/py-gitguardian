@@ -256,7 +256,7 @@ def test_client__url_from_endpoint(base_uries, version, endpoints_and_urls):
         for endpoint, expected_url in endpoints_and_urls:
             assert (
                 client._url_from_endpoint(endpoint, version) == expected_url
-            ), "Could not get the expected URL for base_uri=`{}`".format(base_uri)
+            ), f"Could not get the expected URL for base_uri=`{base_uri}`"
 
 
 @my_vcr.use_cassette
@@ -284,7 +284,7 @@ def test_health_check_error(client: GGClient):
         "detail:Configuration error., status_code:400, "
         "app version:1.26.0-rc.4, secrets engine version:2.43.0"
     )
-    assert bool(health) is False
+    assert not bool(health)
     assert health.success is False
 
     assert type(health.to_dict()) == OrderedDict
@@ -325,7 +325,7 @@ def test_multi_content_scan(
     has_secrets: bool,
     has_policy_breaks: bool,
 ):
-    with my_vcr.use_cassette(name + ".yaml"):
+    with my_vcr.use_cassette(f"{name}.yaml"):
         multiscan = client.multi_content_scan(to_scan)
 
         assert multiscan.status_code == 200
@@ -463,7 +463,7 @@ def test_content_scan(
     has_policy_breaks: bool,
     policy_break_count: int,
 ):
-    with my_vcr.use_cassette(name + ".yaml"):
+    with my_vcr.use_cassette(f"{name}.yaml"):
         scan_result = client.content_scan(**to_scan)
         assert type(repr(scan_result)) == str
         assert type(str(scan_result)) == str

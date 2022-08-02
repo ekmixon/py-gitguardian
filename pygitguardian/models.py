@@ -59,10 +59,9 @@ class DocumentSchema(BaseSchema):
         encoded = document.encode("utf-8")
         if len(encoded) > DOCUMENT_SIZE_THRESHOLD_BYTES:
             raise ValidationError(
-                "file exceeds the maximum allowed size of {}B".format(
-                    DOCUMENT_SIZE_THRESHOLD_BYTES
-                )
+                f"file exceeds the maximum allowed size of {DOCUMENT_SIZE_THRESHOLD_BYTES}B"
             )
+
 
         if "\x00" in document:
             raise ValidationError("document has null characters")

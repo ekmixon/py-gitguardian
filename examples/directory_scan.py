@@ -28,7 +28,7 @@ for i in range(0, len(to_scan), MULTI_DOCUMENT_LIMIT):
     except Exception as exc:
         # Handle exceptions such as schema validation
         traceback.print_exc(2, file=sys.stderr)
-        print(str(exc))
+        print(exc)
     if isinstance(scan, Detail):
         print("Error scanning some files. Results may be incomplete.")
         print(scan)
